@@ -95,7 +95,7 @@
 							<input type="number" id="total" value="0.00" class="form-control text-right">
 						</div>
 						<div class="col-sm-4">
-							<button class="btn btn-info btn-block">Continue</button>
+							<button class="btn btn-success btn-block">Continue</button>
 						</div>
 					</div>
 				</form>

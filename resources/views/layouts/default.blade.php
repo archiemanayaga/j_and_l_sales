@@ -15,6 +15,7 @@
     @section('head')
       <!-- Bootstrap core CSS -->
       <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
+      <link href="{{ asset('assets/css/font-awesome.css') }}" rel="stylesheet">
 
       <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
       <link href="{{ asset('assets/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">

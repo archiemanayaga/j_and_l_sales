@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class flower extends Model
+class accessory extends Model
 {
-     protected $fillable = [
+    protected $fillable = [
         'name', 'description', 'price', 'quantity',
     ];
 }

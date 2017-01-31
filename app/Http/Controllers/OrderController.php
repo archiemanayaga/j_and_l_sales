@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Flower;
-use App\Accessory;
+use App\Models\Flower;
+use App\Models\Accessory;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
