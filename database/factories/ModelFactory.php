@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
@@ -20,7 +20,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Flower::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Flower::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->firstName,
         'description' => $faker->text,
@@ -29,7 +29,7 @@ $factory->define(App\Flower::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Accessory::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Accessory::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->firstName,
         'description' => $faker->text,

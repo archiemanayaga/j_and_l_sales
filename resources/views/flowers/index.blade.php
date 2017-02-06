@@ -31,6 +31,7 @@
 					<table class="table">
 						<thead>
 							<th>Name</th>
+							<th>Description</th>
 							<th class="text-right">Price</th>
 							<th class="text-right" style="width: 150px;">Quantity</th>
 							<th class="text-right" style="width: 150px;">Action</th>
@@ -39,6 +40,7 @@
 							@foreach($flowers as $flower)
 								<tr>
 									<td>{{$flower->name}}</td>
+									<td>{{$flower->description}}</td>
 									<td class="text-right">{{$flower->price}}</td>
 									<td class="text-right">
 										{{$flower->quantity}}

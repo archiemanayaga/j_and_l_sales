@@ -14,3 +14,4 @@
 Route::get('/', 'OrderController@index');
 Route::get('/flowers', 'FlowerController@index');
 Route::get('/accessories', 'AccessoryController@index');
+Route::get('/services', 'ServiceController@index');

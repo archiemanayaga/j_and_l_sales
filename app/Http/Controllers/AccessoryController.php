@@ -14,7 +14,7 @@ class AccessoryController extends Controller
     	$data['accessories'] = Accessory::paginate(5);
     	
 
-    	return view('accessories.index');
+    	return view('accessories.index', $data);
     	//return "hai zianne";
     }
 }

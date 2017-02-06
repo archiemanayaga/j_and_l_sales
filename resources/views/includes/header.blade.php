@@ -14,9 +14,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Order</a></li>
-        <li><a href="#">Appointments</a></li>
-        <li><a href="#">Reports</a></li>
+        <li><a href="/" class="active">Order</a></li>
+        <li><a href="/appointments">Appointments</a></li>
+        <li><a href="/reports">Reports</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

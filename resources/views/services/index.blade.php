@@ -25,26 +25,22 @@
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Accessories</h3>
+						<h3 class="panel-title">Services</h3>
 					</div>
 
 					<table class="table">
 						<thead>
 							<th>Name</th>
 							<th>Description</th>
-							<th class="text-right">Price</th>
-							<th class="text-right" style="width: 150px;">Quantity</th>
+							<th class="text-right">Fee</th>
 							<th class="text-right" style="width: 150px;">Action</th>
 						</thead>
 						<tbody>
-							@foreach($accessories as $accessory)
+							@foreach($services as $service)
 								<tr>
-									<td>{{$accessory->name}}</td>
-									<td>{{$accessory->description}}</td>
-									<td class="text-right">{{$accessory->price}}</td>
-									<td class="text-right">
-										{{$accessory->quantity}}
-									</td>
+									<td>{{$service->name}}</td>
+									<td>{{$service->description}}</td>
+									<td class="text-right">{{$service->fee}}</td>
 									<td class="text-right">
 										<div class="btn-group" role="group" aria-label="...">
 										  <button type="button" class="btn btn-default" title="edit">
@@ -63,7 +59,7 @@
 			</div>
 			
 			<div class="col-sm-8 col-sm-offset-2 text-right">
-				{{ $accessories->links() }}
+				{{ $services->links() }}
 			</div>
 		</div>
 	</div>

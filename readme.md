@@ -34,3 +34,19 @@
  use the following:
  
  $table->integer('flower_id')->index()
+
+ ## To check artisan commands
+
+ php artisan
+
+ ## Directory to add blade files
+
+ resources/views/
+
+ ## Directory of controllers
+
+ app/Http/Controllers
+
+ ## Directory of route
+
+ app/Http

@@ -11,6 +11,6 @@ class AccessoriesSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Accessory::class, 5)->create();
+        factory(App\Models\Accessory::class, 5)->create();
     }
 }
