@@ -165,9 +165,10 @@
 			}
 
 			function sumItUp () {
-				var total = 0; 
+				var total = 0;
+				
 				ordersForm.find('input[type=checkbox]:checked').each(function() {
-					var iCheckbox = $(this), itemName, iQuantity;
+					var iCheckbox = $(this), itemName, itemId, iQuantity;
 
 					if (iCheckbox.hasClass('ac')) {
 						itemName = 'accessory';
@@ -175,7 +176,8 @@
 						itemName = 'flower';
 					}
 
-					iQuantity = $('input#' + itemName + 'Quantity' + iCheckbox.data(itemName + '-id'));
+					itemId = iCheckbox.data(itemName + '-id')
+					iQuantity = $('input#' + itemName + 'Quantity' + itemId);
 
 					total += parseFloat(iCheckbox.val()) * parseFloat(iQuantity.val());
 				});
