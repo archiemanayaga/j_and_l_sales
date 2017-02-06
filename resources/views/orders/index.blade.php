@@ -41,7 +41,9 @@
 											<td>
 												<input type="checkbox"
 													id="flowerCheckbox{{$flower->id}}" 
-													data-flower-id="{{$flower->id}}">
+													data-flower-id="{{$flower->id}}"
+													class="fc" 
+													value="{{$flower->price}}">
 											</td>
 											<td>{{$flower->name}}</td>
 											<td class="text-right">{{$flower->price}}</td>
@@ -78,7 +80,9 @@
 											<td>
 												<input type="checkbox"
 													id="accessoryCheckbox{{$accessory->id}}"
-													data-accessory-id="{{$accessory->id}}">
+													data-accessory-id="{{$accessory->id}}"
+													class="ac" 
+													value="{{$accessory->price}}">
 											</td>
 											<td>{{$accessory->name}}</td>
 											<td class="text-right">{{$accessory->price}}</td>
@@ -101,7 +105,7 @@
 						<div class="form-group">
 							<label for="total" class="col-sm-3 control-label total-label">Total:</label>
 							<div class="col-sm-5">
-								<input type="number" id="total" value="0.00" class="form-control text-right">
+								<input type="number" id="total" value="0.00" class="form-control text-right" disabled>
 							</div>
 							<div class="col-sm-4">
 								<button class="btn btn-success btn-block">Continue</button>
@@ -119,6 +123,7 @@
 	<script>
 		$(function() {
 			var ordersForm = $('form#ordersForm');
+			var orderTotal = ordersForm.find('input#total');
 
 			function makeEvent (itemName) {
 				var checkboxIName = "input[id^=" + itemName + "Checkbox]";
@@ -134,7 +139,8 @@
 			}
 			
 			function checkedUnchecked (iQuantity, itemName) {
-				var iCheckbox = $("input#" + itemName + 'Checkbox' + iQuantity.data(itemName + '-id'));
+				var itemId = iQuantity.data(itemName + '-id');
+				var iCheckbox = $("input#" + itemName + 'Checkbox' + itemId);
 
 				if(parseFloat(iQuantity.val()) === 0 ||
 					iQuantity.val() === '' ||
@@ -143,14 +149,38 @@
 				} else {
 					iCheckbox.prop('checked', true);	
 				}
+
+				sumItUp();
 			}
 
 			function iQuantittyDefault (iCheckbox, itemName) {
-				var iQuantity = $('input#' + itemName + 'Quantity' + iCheckbox.data(itemName + '-id'));
+				var itemId = iCheckbox.data(itemName + '-id');
+				var iQuantity = $('input#' + itemName + 'Quantity' + itemId);
 
 				if (!iCheckbox.is(':checked')) {
 					iQuantity.val('0');
 				}
+
+				sumItUp();
+			}
+
+			function sumItUp () {
+				var total = 0; 
+				ordersForm.find('input[type=checkbox]:checked').each(function() {
+					var iCheckbox = $(this), itemName, iQuantity;
+
+					if (iCheckbox.hasClass('ac')) {
+						itemName = 'accessory';
+					} else {
+						itemName = 'flower';
+					}
+
+					iQuantity = $('input#' + itemName + 'Quantity' + iCheckbox.data(itemName + '-id'));
+
+					total += parseFloat(iCheckbox.val()) * parseFloat(iQuantity.val());
+				});
+
+				orderTotal.val(total.toFixed(2));
 			}
 
 			makeEvent('flower');
