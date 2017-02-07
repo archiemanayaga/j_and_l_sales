@@ -134,7 +134,7 @@
 				});
 
 				ordersForm.on('click', checkboxIName, function () {
-					iQuantittyDefault($(this), itemName);
+					iQuantityDefault($(this), itemName);
 				});
 			}
 			
@@ -153,7 +153,7 @@
 				sumItUp();
 			}
 
-			function iQuantittyDefault (iCheckbox, itemName) {
+			function iQuantityDefault (iCheckbox, itemName) {
 				var itemId = iCheckbox.data(itemName + '-id');
 				var iQuantity = $('input#' + itemName + 'Quantity' + itemId);
 
@@ -166,7 +166,7 @@
 
 			function sumItUp () {
 				var total = 0;
-				
+
 				ordersForm.find('input[type=checkbox]:checked').each(function() {
 					var iCheckbox = $(this), itemName, itemId, iQuantity;
 
