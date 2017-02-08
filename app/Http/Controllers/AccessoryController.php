@@ -9,12 +9,23 @@ use App\Http\Requests;
 
 class AccessoryController extends Controller
 {
+	protected $request;
+
+	public function __construct(Request $request) 
+	{
+		$this->request = $request;
+	}
+
     public function index()
     {
-    	$data['accessories'] = Accessory::paginate(5);
-    	
+    	if($this->request->has('search')) {
+    		$name = $this->request->get('search');
+    		$accessories = Accessory::where('name', 'LIKE', "%$name%")->paginate(5);
+    		$accessories->appends($this->request->only('search'));
+    	} else {
+    		$accessories = Accessory::paginate(5);	
+    	}
 
-    	return view('accessories.index', $data);
-    	//return "hai zianne";
+    	return view('accessories.index', compact('accessories'));
     }
 }
