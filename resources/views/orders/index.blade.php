@@ -20,7 +20,8 @@
 @section('content')
 	@include('includes.header')
 	<div class="container order-page">
-		<form action="/orders/save" method="post" id="ordersForm" role="form">
+		<form action="/orders/store" method="post" id="ordersForm" role="form">
+			{{ csrf_field() }}
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="panel panel-default">
@@ -48,7 +49,7 @@
 											<td>{{$flower->name}}</td>
 											<td class="text-right">{{$flower->price}}</td>
 											<td>
-												<input type="hidden" name="flower.id[]" id="flower_{{$flower->id}}">
+												<input type="hidden" name="flower.id[]" id="flower_{{$flower->id}}" value="{{$flower->id}}">
 												<input type="number" name="flower.quantity[]" 
 													id="flowerQuantity{{$flower->id}}" 
 													class="form-control text-right" 
@@ -87,7 +88,7 @@
 											<td>{{$accessory->name}}</td>
 											<td class="text-right">{{$accessory->price}}</td>
 											<td>
-												<input type="hidden" name="accessory.id[]" id="accessory_{{$accessory->id}}">
+												<input type="hidden" name="accessory.id[]" id="accessory_{{$accessory->id}}" value="{{$accessory->id}}">
 												<input type="number" name="accessory.quantity[]" 
 													id="accessoryQuantity{{$accessory->id}}" 
 													class="form-control text-right" 

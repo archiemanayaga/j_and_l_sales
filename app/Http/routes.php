@@ -15,6 +15,8 @@ Route::auth();
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/', 'OrderController@index');
+	Route::post('orders/store', 'OrderController@store');
+
 	Route::get('/flowers', 'FlowerController@index');
 	Route::get('/accessories', 'AccessoryController@index');
 	Route::get('/services', 'ServiceController@index');
