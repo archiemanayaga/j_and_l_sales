@@ -37,3 +37,11 @@ $factory->define(App\Models\Accessory::class, function (Faker\Generator $faker) 
         'quantity' => rand(5, 30),
     ];
 });
+
+$factory->define(App\Models\Service::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->firstName,
+        'description' => $faker->text,
+        'fee' => rand(5, 15)
+    ];
+});

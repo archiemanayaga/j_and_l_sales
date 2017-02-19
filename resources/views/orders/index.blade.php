@@ -54,6 +54,8 @@
 													id="flowerQuantity{{$flower->id}}" 
 													class="form-control text-right" 
 													data-flower-id="{{$flower->id}}" value="0">
+												<input type="hidden" name="flower.price[]"
+													value="{{ $flower->price }}">
 											</td>
 										</tr>
 									@endforeach
@@ -93,6 +95,8 @@
 													id="accessoryQuantity{{$accessory->id}}" 
 													class="form-control text-right" 
 													data-accessory-id="{{$accessory->id}}" value="0">
+												<input type="hidden" name="accessory.price[]"
+													value="{{ $accessory->price }}">
 											</td>
 										</tr>
 									@endforeach
@@ -104,13 +108,24 @@
 				<div class="col-sm-6 col-sm-offset-6 text-right">
 					<form action="">
 						<div class="form-group">
-							<label for="total" class="col-sm-3 control-label total-label">Total:</label>
+							<label for="total" class="col-sm-7 control-label total-label">Total:</label>
 							<div class="col-sm-5">
-								<input type="number" id="total" value="0.00" class="form-control text-right" disabled>
+								<input type="number" name="total" id="total" value="0.00" class="form-control text-right" disabled>
 							</div>
-							<div class="col-sm-4">
-								<button class="btn btn-success btn-block">Continue</button>
+						</div>
+						<div class="form-group">
+							<label for="total" class="col-sm-7 control-label total-label">Service:</label>
+							<div class="col-sm-5">
+								<select name="service_id" id="service_id"
+									class="form-control">
+									@foreach($services as $service)
+										<option value="{{ $service->id }}">{{ $service->name }}</option>
+									@endforeach
+								</select>
 							</div>
+						</div>
+						<div class="col-sm-5 col-sm-offset-7">
+							<button class="btn btn-success btn-block">Continue</button>
 						</div>
 					</form>
 				</div>

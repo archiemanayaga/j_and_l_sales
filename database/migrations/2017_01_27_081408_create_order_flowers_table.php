@@ -16,8 +16,8 @@ class CreateOrderFlowersTable extends Migration
             $table->increments('id');
             $table->integer('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders');
-            $table->integer('flower_id')->index();
-            $table->integer('accessory_id')->index();
+            $table->integer('flower_id')->index()->nullable();
+            $table->integer('accessory_id')->index()->nullable();
             $table->integer('quantity');
             $table->double('accessory_price',10,2);
             $table->double('flower_price',10,2);
