@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Accessory;
 use App\Models\Flower;
 use App\Models\Order;
+use App\Models\OrderFlower;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -48,6 +49,41 @@ class OrderController extends Controller
             'service_id' => $service->id,
             'service_fee' => $service->fee
         ]);
-        dd($service);
+
+        $this->storeOrderItems('flower', $order->id, [
+            'quantities' => $arFlowersQuantity,
+            'ids' => $arFlowersId,
+            'prices' => $arFlowersPrice
+        ]);
+
+        $this->storeOrderItems('accessory', $order->id, [
+            'quantities' => $arAccessoriesQuantity,
+            'ids' => $arAccessoriesId,
+            'prices' => $arAccessoriesPrice
+        ]);
+
+        return back();
+    }
+
+    private function storeOrderItems($model, $orderId, $data)
+    {
+        foreach ($data['quantities'] as $key => $quantity) {
+            $id = $data['ids'][$key];
+            $price = $data['prices'][$key];
+
+            $orderItem = [
+                'order_id' => $orderId,
+                'price' => $price,
+                'quantity' => $quantity
+            ];
+
+            if($model == 'flower') {
+                $orderItem['flower_id'] = $id;
+            } else {
+                $orderItem['accessory_id'] = $id;
+            }
+
+            OrderFlower::create($orderItem);
+        }
     }
 }

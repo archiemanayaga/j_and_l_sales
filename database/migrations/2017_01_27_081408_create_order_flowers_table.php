@@ -19,8 +19,7 @@ class CreateOrderFlowersTable extends Migration
             $table->integer('flower_id')->index()->nullable();
             $table->integer('accessory_id')->index()->nullable();
             $table->integer('quantity');
-            $table->double('accessory_price',10,2);
-            $table->double('flower_price',10,2);
+            $table->double('price',10,2);
             $table->timestamps();
         });
     }
