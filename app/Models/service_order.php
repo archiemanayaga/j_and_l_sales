@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class service_order extends Model
 {
-     protected $fillable = [
-        'service_id', 'order_id',
-       ];
+    protected $fillable = [
+    	'service_id', 'order_id',
+    ];
 }

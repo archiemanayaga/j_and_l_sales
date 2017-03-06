@@ -34,12 +34,12 @@ class OrderController extends Controller
     {
         $arFlowersId = $this->request->get('flower_id');
         $arFlowersQuantity = array_filter($this->request->get('flower_quantity'), function($val) {
-            return $val != '0';
+            return floatval($val) > 0;
         });
         $arFlowersPrice = $this->request->get('flower_price');
         $arAccessoriesId = $this->request->get('accessory_id');
         $arAccessoriesQuantity = array_filter($this->request->get('accessory_quantity'), function($value) {
-            return $value != '0';
+            return floatval($value) > 0;
         });
         $arAccessoriesPrice = $this->request->get('accessory_price');
 
@@ -47,7 +47,8 @@ class OrderController extends Controller
 
         $order = Order::create([
             'service_id' => $service->id,
-            'service_fee' => $service->fee
+            'service_fee' => $service->fee,
+            'user_id' => \Auth::user()->id
         ]);
 
         $this->storeOrderItems('flower', $order->id, [
@@ -62,7 +63,10 @@ class OrderController extends Controller
             'prices' => $arAccessoriesPrice
         ]);
 
-        return back();
+        return back()->with([
+            'status' => 'success',
+            'order' => $order
+        ]);
     }
 
     private function storeOrderItems($model, $orderId, $data)

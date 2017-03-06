@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class accessory extends Model
 {
     protected $fillable = [
-        'name', 'description', 'price', 'quantity',
+        'name', 'description', 'price', 'user_id'
     ];
+
+    public function orderItems()
+    {
+    	return $this->hasMany(OrderFlower::class);
+    }
 }

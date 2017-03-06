@@ -29,7 +29,7 @@
 						<input type="text" name="search" class="form-control" value="{{ request()->get('search') }}" placeholder="Search Service">
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-							<button class="btn btn-default" 
+							<button class="btn btn-default btn-new" 
 								type="button"
 								data-toggle="modal"
 								data-target="#newForm"><i class="fa fa-file-text"></i></button>
@@ -59,12 +59,13 @@
 									<td class="text-right">{{$service->fee}}</td>
 									<td class="text-right">
 										<div class="btn-group" role="group" aria-label="...">
-										  <button type="button" class="btn btn-default" title="edit">
+										  <a href="#" class="btn btn-default btn-edit" title="edit"
+										  data-service-id="{{$service->id}}">
 										  	<i class="fa fa-pencil"></i>
-										  </button>
-										  <button type="button" class="btn btn-default" title="delete">
+										  </a>
+										  <a href="#" data-service-id="{{$service->id}}" class="btn btn-default btn-delete" title="delete">
 										  	<i class="fa fa-trash"></i>
-										  </button>
+										  </a>
 										</div>
 									</td>
 								</tr>
@@ -78,7 +79,8 @@
 				{{ $services->links() }}
 			</div>
 		</div>
-			<div class="modal fade" id="newForm" tabindex="-1" role="dialog" aria-labelledby="newFormLabel">
+		{{-- Create Accessory Form --}}
+		<div class="modal fade form-container" id="newForm" tabindex="-1" role="dialog" aria-labelledby="newFormLabel">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -86,7 +88,10 @@
 		        <h4 class="modal-title" id="newFormLabel">Create New Service</h4>
 		      </div>
 		      <div class="modal-body">
-		        <form action="/accessories/store" method="post">
+		        <form id="modalForm" action="/services/" method="post">
+		        	{{ csrf_field() }}
+		        	<input type="hidden" name="_method" value="PUT" disabled>
+		        	<input type="hidden" name="id" disabled>
 		        	<div class="col-sm-6">
 		        		<div class="form-group">
 		        			<label for="name" class="control-label">Name:</label>
@@ -95,8 +100,8 @@
 		        	</div>
 		        	<div class="col-sm-6">
 		        		<div class="form-group">
-		        			<label for="price" class="control-label">Price:</label>
-		        			<input type="number" name="price" id="price" class="form-control text-right">
+		        			<label for="price" class="control-label">Fee:</label>
+		        			<input type="number" name="fee" id="fee" class="form-control text-right">
 		        		</div>
 		        	</div>
 		        	<div class="col-sm-12">
@@ -114,5 +119,66 @@
 		    </div>
 		  </div>
 		</div>
+
+		<form action="/services/delete" method="post" class="deleteForm hidden">
+			{{ csrf_field() }}
+			<input type="hidden" name="_method" value="DELETE">
+        	<input type="hidden" name="id">
+		</form>
+		{{-- End --}}
 	</div>
+@endsection
+
+@section('foot')
+	@parent
+	<script>
+		$(function() {
+			var $formContainer = $('.form-container'),
+			$modalForm = $formContainer.find('form#modalForm'),
+			$deleteForm = $('form.deleteForm');
+
+			$formContainer.on('click', 'button.btn-primary', function() {
+				$modalForm.submit();
+			});
+
+			$('button.btn-new').on('click', function() {
+				$formContainer.find('#newFormLabel').text('Create New Service');
+				$modalForm.find('input[name=_method]').prop('disabled', true);
+				$modalForm.find('input[name=id]').prop('disabled', true).val('');
+				$modalForm.find('input[name=name]').val('');
+				$modalForm.find('input[name=fee]').val('');
+				$modalForm.find('textarea[name=description]').val('');
+				$modalForm.prop('action', '/services/store');
+			});
+
+			$('a.btn-edit').on('click', function(e) {
+				e.preventDefault();
+
+				$.ajax({
+					url: '/services/edit/' + $(this).data('service-id'),
+					type: 'GET',
+					success: function(res) {
+						if(res.status === 'ok') {
+							$modalForm.prop('action', '/services/update');
+							$modalForm.find('input[name=_method]').prop('disabled', false);
+							$modalForm.find('input[name=id]').prop('disabled', false).val(res.service.id);
+							$modalForm.find('input[name=name]').val(res.service.name);
+							$modalForm.find('input[name=fee]').val(res.service.fee);
+							$modalForm.find('textarea[name=description]').val(res.service.description);
+							$formContainer.find('#newFormLabel').text('Update Service');
+							$formContainer.modal('toggle');
+						}
+					}
+				})
+			});
+
+			$('a.btn-delete').on('click', function(e) {
+				e.preventDefault();
+
+				$deleteForm.find('input[name=id]').val($(this).data('service-id'));
+
+				$deleteForm.submit();
+			})
+		});
+	</script>
 @endsection

@@ -17,7 +17,8 @@ class CreateAccessoriesTable extends Migration
             $table->string('name', 100);
             $table->string('description', 255);
             $table->double('price', 10, 2);
-            $table->tinyInteger('quantity');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

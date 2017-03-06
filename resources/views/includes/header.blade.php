@@ -15,8 +15,16 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/" class="active">Order</a></li>
-          <li><a href="/appointments">Appointments</a></li>
-          <li><a href="/reports">Reports</a></li>
+          <li><a href="#{{-- /appointments --}}">Appointments</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/reports/order">Order</a></li>
+              <li><a href="#{{-- /reports/accessory --}}">Accessory</a></li>
+              <li><a href="#{{-- /reports/flower --}}">Flower</a></li>
+              <li><a href="#{{-- /reports/service --}}">Service</a></li>
+            </ul>
+          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}} <span class="caret"></span></a>
             <ul class="dropdown-menu">

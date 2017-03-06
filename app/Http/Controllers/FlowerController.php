@@ -18,17 +18,55 @@ class FlowerController extends Controller
 
     public function index()
     {
-
          if($this->request->has('search')) {
     		$name = $this->request->get('search');
-    		$flowers = flower::where('name', 'LIKE', "%$name%")->paginate(5);
+    		$flowers = Flower::where('name', 'LIKE', "%$name%")
+                ->orderBy('id', 'desc')->paginate(5);
     		$flowers->appends($this->request->only('search'));
     	} else {
-    		$flowers = flower::paginate(5);	
+    		$flowers = Flower::orderBy('id', 'desc')->paginate(5);	
     	}
-    	//$data['flowers'] = Flower::paginate(5);
     	
-          return view('flowers.index', compact('flowers'));
-    	//return view('flowers.index', $data);
+        return view('flowers.index', compact('flowers'));
+    }
+
+    public function store()
+    {
+        $this->validate($this->request, [
+            'name' => 'required',
+            'price' => 'required'
+        ]);
+        $data = $this->request->except('_token');
+        $data['user_id'] = \Auth::user()->id;
+        Flower::create($data);
+
+        return back();
+    }
+
+    public function edit($id)
+    {
+        return [
+            'status' => 'ok',
+            'flower' => Flower::find($id)
+        ];
+    }
+
+    public function update()
+    {
+        $id = $this->request->get('id');
+
+        Flower::find($id)
+            ->update($this->request->except(['_token', 'id']));
+
+        return back();
+    }
+
+    public function delete()
+    {
+        $id = $this->request->get('id');
+
+        Flower::find($id)->forceDelete();
+
+        return back();
     }
 }

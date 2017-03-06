@@ -21,18 +21,53 @@ class ServiceController extends Controller
     {
     	if($this->request->has('search')) {
     		$name = $this->request->get('search');
-    		$services = service::where('name', 'LIKE', "%$name%")->paginate(5);
+    		$services = Service::where('name', 'LIKE', "%$name%")
+                ->orderBy('id', 'desc')->paginate(5);
     		$services->appends($this->request->only('search'));
     	} else {
-    		$services = service::paginate(5);	
+    		$services = Service::orderBy('id', 'desc')->paginate(5);	
     	}
     	
     	return view('services.index', compact('services'));
-		//$data['flowers'] = Flower::all();
-    	//$data['accessories'] = Accessory::all();
-    	//$data['services'] = Service::paginate(5);
+    }
 
-    	//return view('services.index', $data);
-    	//return view('orders.index', $data);
+    public function store()
+    {
+        $this->validate($this->request, [
+            'name' => 'required',
+            'fee' => 'required'
+        ]);
+        $data = $this->request->except('_token');
+        $data['user_id'] = \Auth::user()->id;
+        Service::create($data);
+
+        return back();
+    }
+
+    public function edit($id)
+    {
+        return [
+            'status' => 'ok',
+            'service' => Service::find($id)
+        ];
+    }
+
+    public function update()
+    {
+        $id = $this->request->get('id');
+
+        Service::find($id)
+            ->update($this->request->except(['_token', 'id']));
+
+        return back();
+    }
+
+    public function delete()
+    {
+        $id = $this->request->get('id');
+
+        Service::find($id)->forceDelete();
+
+        return back();
     }
 }
