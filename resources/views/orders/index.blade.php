@@ -40,6 +40,9 @@
 			var orderTotal = ordersForm.find('input#total');
 			var $name = $('input[name="name"]');
 			var $cId = $('input[name="customer_id"]');
+			var $address = $('input[name="address"]');
+			var $phone = $('input[name="phone"]');
+			var $email = $('input[name="email"]');
 
 			$.ajaxSetup({
 				headers: {
@@ -132,11 +135,21 @@
 					// Some item from your model is active!
 					if (current.name == $name.val()) {
 						$cId.val(current.id);
+						$address.val(current.address);
+						$phone.val(current.phone);
+						$email.val(current.email);
+
 					} else {
 						$cId.val('');
+						$address.val('');
+						$phone.val('');
+						$email.val('');
 					}
 				} else {
 					$cId.val('');
+					$address.val('');
+					$phone.val('');
+					$email.val('');
 				}
 			});
 
