@@ -39,4 +39,6 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('reports/accessory', 'ReportController@accessory');
 	Route::get('reports/flower', 'ReportController@flower');
 	Route::get('reports/service', 'ReportController@service');
+
+    Route::get('customers/search', 'CustomerController@search');
 });

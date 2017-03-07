@@ -32,10 +32,20 @@
 
 @section('foot')
 	@parent
+	<script src="{{ asset('assets/js/bootstrap3-typeahead.min.js') }}"></script>
+	<script src="{{ asset('assets/js/jquery.maskinput.min.js') }}"></script>
 	<script>
 		$(function() {
 			var ordersForm = $('form#ordersForm');
 			var orderTotal = ordersForm.find('input#total');
+			var $name = $('input[name="name"]');
+			var $cId = $('input[name="customer_id"]');
+
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
 
 			function makeEvent (itemName) {
 				var checkboxIName = "input[id^=" + itemName + "Checkbox]";
@@ -100,6 +110,35 @@
 
 			makeEvent('flower');
 			makeEvent('accessory');
+
+            $('input[name="phone"]').mask("(999) 999-9999");
+
+			$name.typeahead({
+				autoSelect: true,
+				source: function (query, process) {
+					$.ajax({
+						url: '/customers/search',
+						data: {q: query},
+						dataType: 'json'
+					}).done(function(response) {
+						console.log(response.customer);
+						return process(response.customer);
+					});
+				}
+			});
+			$name.change(function() {
+				var current = $name.typeahead("getActive");
+				if (current) {
+					// Some item from your model is active!
+					if (current.name == $name.val()) {
+						$cId.val(current.id);
+					} else {
+						$cId.val('');
+					}
+				} else {
+					$cId.val('');
+				}
+			});
 
 			if($('.btn-back').length && ordersForm.hasClass('hidden')) {
 				$('.btn-back').on('click', function(e) {
