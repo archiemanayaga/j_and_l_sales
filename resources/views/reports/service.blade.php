@@ -21,61 +21,48 @@
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Orders</h3>
+						<h3 class="panel-title">Flowers</h3>
 					</div>
 
 					<table class="table">
 						<thead>
-							<th>OR No.</th>
-							<th>Customer</th>
-							<th class="text-right">Service Fee</th>
-							<th class="text-right">Total Price</th>
+							<th>#</th>
+							<th>Name</th>
+							<th class="text-right">Orig Fee</th>
+							<th class="text-right">Quantity</th>
+							<th class="text-right">Total</th>
 						</thead>
 						<tbody>
-							@foreach($orderPag as $order)
+							@foreach($services as $order)
 								<tr class="order-item">
-									<td>{{$order->id}}</td>
-									<td>{{$order->customer->name}}</td>
-									<td class="text-right">{{$order->service_fee}}</td>
-									<td class="text-right">{{$order->orderItems->reduce(function($curr, $item) {
-											$total = bcmul($item->price, $item->quantity);
-											return bcadd($curr, $total);
-										}, 0)}}</td>
+									<td>{{$order['id']}}</td>
+									<td>{{$order['name']}}</td>
+									<td class="text-right">{{$order['fee']}}</td>
+									<td class="text-right">{{$order['quantity']}}</td>
+									<td class="text-right">{{$order['total_fee']}}</td>
 								</tr>
 								<tr class="order-item-detail hidden">
-									<td colspan="4">
+									<td colspan="5">
 										<h4>Details</h4>
 										<table class="table">
 											<thead>
 												<tr>
-													<th>Name</th>
-													<th>Type</th>
-													<th>Quantity</th>
-													<th>Price</th>
+													<th>Order #</th>
+													<th>Customer Name</th>
+													<th>Fee</th>
 												</tr>
 											</thead>
 											<tbody>
-												@foreach($order->orderItems as $item)
+												@foreach($order['orders']as $item)
 													<tr>
 														<td>
-															@if(!is_null($item->flowers))
-																{{ $item->flowers->name }}
-															@elseif(!is_null($item->accessories))
-																{{ $item->accessories->name }}
-															@endif
+															{{$item->id}}
 														</td>
 														<td>
-															@if(!is_null($item->flowers))
-																Flower
-															@elseif(!is_null($item->accessories))
-																Accessory
-															@endif
+															{{$item->customer->name}}
 														</td>
 														<td>
-															{{$item->quantity}}
-														</td>
-														<td>
-															{{$item->price}}
+															{{$item->service_fee}}
 														</td>
 													</tr>
 												@endforeach
@@ -88,13 +75,9 @@
 					</table>
 
 					<div class="panel-footer text-right">
-						Total: {{$ordersTotal}}
-					</div>	
+						Total: {{$servicesTotal}}
+					</div>
 				</div>
-			</div>
-			
-			<div class="col-sm-8 col-sm-offset-2 text-right">
-				{{ $orderPag->links() }}
 			</div>
 		</div>
 	</div>

@@ -20,9 +20,9 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="/reports/order">Order</a></li>
-              <li><a href="#{{-- /reports/accessory --}}">Accessory</a></li>
-              <li><a href="#{{-- /reports/flower --}}">Flower</a></li>
-              <li><a href="#{{-- /reports/service --}}">Service</a></li>
+              <li><a href="/reports/accessory ">Accessory</a></li>
+              <li><a href="/reports/flower ">Flower</a></li>
+              <li><a href="/reports/service ">Service</a></li>
             </ul>
           </li>
           <li class="dropdown">
