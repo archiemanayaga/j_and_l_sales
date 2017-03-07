@@ -3,6 +3,27 @@
 	{{ csrf_field() }}
 	<div class="row">
 		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="name">Customer Name:</label>
+				<input type="text" class="form-control" name="name" id="name" autocomplete="off" required>
+                <input type="hidden" class="form-control" name="customer_id" id="customer_id">
+			</div>
+			<div class="form-group">
+				<label for="address">Address:</label>
+				<input type="text" class="form-control" name="address" id="address" required>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="phone">Phone:</label>
+				<input type="text" class="form-control" name="phone" id="phone" required>
+			</div>
+			<div class="form-group">
+				<label for="email">Email:</label>
+				<input type="email" class="form-control" name="email" id="email" required>
+			</div>
+		</div>
+		<div class="col-sm-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Flowers</h3>

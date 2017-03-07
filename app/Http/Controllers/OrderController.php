@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accessory;
+use App\Models\customer;
 use App\Models\Flower;
 use App\Models\Order;
 use App\Models\OrderFlower;
@@ -43,11 +44,22 @@ class OrderController extends Controller
         });
         $arAccessoriesPrice = $this->request->get('accessory_price');
 
+        $id = $this->request->get('customer_id', '');
+
+        if(!$id) {
+            $customerData = $this->request->only(['name', 'address', 'phone', 'email']);
+            $customerData['user_id'] = \Auth::user()->id;
+            $customer = Customer::create($customerData);
+
+            $id = $customer->id;
+        }
+
         $service = Service::find($this->request->get('service_id'));
 
         $order = Order::create([
             'service_id' => $service->id,
             'service_fee' => $service->fee,
+            'customer_id' => $id,
             'user_id' => \Auth::user()->id
         ]);
 
