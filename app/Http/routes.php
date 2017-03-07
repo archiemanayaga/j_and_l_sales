@@ -35,6 +35,13 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::put('services/update', 'ServiceController@update');
 	Route::delete('services/delete', 'ServiceController@delete');
 
+	Route::get('users', 'UserController@index');
+	Route::post('users/store', 'UserController@store');
+	Route::get('users/edit/{id}', 'UserController@edit');
+	Route::put('users/update', 'UserController@update');
+	Route::put('users/reset', 'UserController@reset');
+	Route::delete('users/delete', 'UserController@delete');
+
 	Route::get('reports/order', 'ReportController@index');
 	Route::get('reports/accessory', 'ReportController@accessory');
 	Route::get('reports/flower', 'ReportController@flower');

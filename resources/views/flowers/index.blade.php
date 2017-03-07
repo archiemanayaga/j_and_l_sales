@@ -39,7 +39,7 @@
 			</div>
 
 			<div class="col-sm-8 col-sm-offset-2">
-				<div class="panel panel-default">
+				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">Flowers</h3>
 					</div>
@@ -49,18 +49,14 @@
 							<th>Name</th>
 							<th>Description</th>
 							<th class="text-right">Price</th>
-							<th class="text-right" style="width: 150px;">Quantity</th>
 							<th class="text-right" style="width: 150px;">Action</th>
 						</thead>
 						<tbody>
 							@foreach($flowers as $flower)
 								<tr>
 									<td>{{$flower->name}}</td>
-									<td>{{$flower->description}}</td>
+									<td>{{$flower->description?:'N/A'}}</td>
 									<td class="text-right">{{$flower->price}}</td>
-									<td class="text-right">
-										{{$flower->quantity}}
-									</td>
 									<td class="text-right">
 										<div class="btn-group" role="group" aria-label="...">
 										  <a href="#" class="btn btn-default btn-edit" title="edit"
@@ -119,7 +115,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
+		        <button type="button" class="btn btn-success">Save changes</button>
 		      </div>
 		    </div>
 		  </div>
@@ -179,10 +175,12 @@
 
 			$('a.btn-delete').on('click', function(e) {
 				e.preventDefault();
+				var $confirm = confirm('Are you sure you want to Delete?');
+				if($confirm === true) {
+					$deleteForm.find('input[name=id]').val($(this).data('flower-id'));
 
-				$deleteForm.find('input[name=id]').val($(this).data('flower-id'));
-
-				$deleteForm.submit();
+					$deleteForm.submit();
+				}
 			})
 		});
 	</script>

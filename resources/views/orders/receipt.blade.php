@@ -4,7 +4,7 @@
 			<h3 class="text-center">J And L Flower Shop</h3>
 			<p class="clearfix">
 				<span class="pull-left">{{$orders->created_at->toDayDateTimeString()}}</span>
-				<span class="pull-right">OR Number: 1</span>
+				<span class="pull-right">OR Number: {{$orders->id}}</span>
 			</p>
 		</div>
 		<div class="receipt-body">

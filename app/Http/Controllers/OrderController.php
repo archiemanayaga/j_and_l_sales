@@ -46,12 +46,15 @@ class OrderController extends Controller
 
         $id = $this->request->get('customer_id', '');
 
+        $customerData = $this->request->only(['name', 'address', 'phone', 'email']);
+
         if(!$id) {
-            $customerData = $this->request->only(['name', 'address', 'phone', 'email']);
             $customerData['user_id'] = \Auth::user()->id;
             $customer = Customer::create($customerData);
 
             $id = $customer->id;
+        } else {
+            Customer::find($id)->update($customerData);
         }
 
         $service = Service::find($this->request->get('service_id'));

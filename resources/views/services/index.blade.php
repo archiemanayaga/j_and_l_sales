@@ -39,7 +39,7 @@
 			</div>
 
 			<div class="col-sm-8 col-sm-offset-2">
-				<div class="panel panel-default">
+				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">Services</h3>
 					</div>
@@ -55,7 +55,7 @@
 							@foreach($services as $service)
 								<tr>
 									<td>{{$service->name}}</td>
-									<td>{{$service->description}}</td>
+									<td>{{$service->description?:'N/A'}}</td>
 									<td class="text-right">{{$service->fee}}</td>
 									<td class="text-right">
 										<div class="btn-group" role="group" aria-label="...">
@@ -114,7 +114,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
+		        <button type="button" class="btn btn-success">Save changes</button>
 		      </div>
 		    </div>
 		  </div>
@@ -174,11 +174,16 @@
 
 			$('a.btn-delete').on('click', function(e) {
 				e.preventDefault();
+				var $confirm = confirm('Are you sure you want to Delete?');
+				if($confirm === true) {
+					$deleteForm.find('input[name=id]').val($(this).data('service-id'));
 
-				$deleteForm.find('input[name=id]').val($(this).data('service-id'));
-
-				$deleteForm.submit();
+					$deleteForm.submit();
+				}
 			})
+			$('#newForm').on('shown.bs.modal', function () {
+				$modalForm.find('input[name=name]').focus().select();
+			});
 		});
 	</script>
 @endsection

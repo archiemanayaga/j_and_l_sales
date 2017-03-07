@@ -114,7 +114,7 @@
 			makeEvent('flower');
 			makeEvent('accessory');
 
-            $('input[name="phone"]').mask("(999) 999-9999");
+            $('input[name="phone"]').mask("+99 999 999 9999");
 
 			$name.typeahead({
 				autoSelect: true,
@@ -152,6 +152,16 @@
 					$email.val('');
 				}
 			});
+
+			$name.focus();
+
+			$('button.btn-success').on('click', function(e) {
+				e.preventDefault();
+
+				if(ordersForm.find('input[type=checkbox]:checked').length > 0) {
+					ordersForm.submit();
+				}
+			})
 
 			if($('.btn-back').length && ordersForm.hasClass('hidden')) {
 				$('.btn-back').on('click', function(e) {

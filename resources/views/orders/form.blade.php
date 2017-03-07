@@ -15,16 +15,16 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="form-group">
-				<label for="phone">Phone:</label>
-				<input type="text" class="form-control" name="phone" id="phone" required>
+				<label for="phone">Mobile:</label>
+				<input type="text" class="form-control" name="phone" id="phone">
 			</div>
 			<div class="form-group">
 				<label for="email">Email:</label>
-				<input type="email" class="form-control" name="email" id="email" required>
+				<input type="email" class="form-control" name="email" id="email">
 			</div>
 		</div>
 		<div class="col-sm-6">
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">Flowers</h3>
 				</div>
@@ -65,7 +65,7 @@
 			</div>
 		</div>
 		<div class="col-sm-6">
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">Accessories</h3>
 				</div>
@@ -125,7 +125,7 @@
 					</div>
 				</div>
 				<div class="col-sm-5 col-sm-offset-7">
-					<button class="btn btn-success btn-block">Save</button>
+					<button type="button" class="btn btn-success btn-block">Save</button>
 				</div>
 			</form>
 		</div>

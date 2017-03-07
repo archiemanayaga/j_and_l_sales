@@ -6,10 +6,6 @@
 		.order-item {
 			cursor: pointer;
 		}
-
-		.order-item:hover {
-			background-color: #eee;
-		}
 	</style>
 @endsection
 
@@ -19,12 +15,12 @@
 		<div class="row">
 			{{-- Orders List --}}
 			<div class="col-sm-8 col-sm-offset-2">
-				<div class="panel panel-default">
+				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Flowers</h3>
+						<h3 class="panel-title">Services</h3>
 					</div>
 
-					<table class="table">
+					<table class="table table-striped table-hover">
 						<thead>
 							<th>#</th>
 							<th>Name</th>
