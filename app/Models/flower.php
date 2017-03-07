@@ -14,4 +14,9 @@ class flower extends Model
     {
     	return $this->hasMany(OrderFlower::class);
     }
+
+    public function setNameAttribute($value)
+    {
+    	$this->attributes['name'] = ucwords($value);
+    }
 }
