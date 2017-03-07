@@ -182,6 +182,9 @@
 					$deleteForm.submit();
 				}
 			})
+			$('#newForm').on('shown.bs.modal', function () {
+				$modalForm.find('input[name=name]').focus().select();
+			});
 		});
 	</script>
 @endsection
